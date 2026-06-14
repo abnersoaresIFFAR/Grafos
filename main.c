@@ -8,6 +8,7 @@ Instituto Federal Farroupilha
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "GrafosGrafica.h"
 #include "GrafosLista.h"
 #include "GrafosMatriz.h"
@@ -70,7 +71,7 @@ void pausa() { /* FAZ O CÓDIGO DAR UMA PAUSA PARA MOSTRAR MENSAGEM BONITA AO UD
     printf("Aperte a tecla ENTER para continuar...");
     while (getchar() != '\n'); // limpar buffer
     //getchar();
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"); // só pra dar um ar de nova página
+    system("clear"); // só pra dar um ar de nova página
 }
 
 int lerIDVertices(){
