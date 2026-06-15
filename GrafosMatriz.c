@@ -87,17 +87,17 @@ void mostrarGrafoMatriz(){
 
     for(int i = 0; i < 100; i++){
         if(raiz[i] != NULL){
-            printf("/t[%d] $s\n", raiz[i]->id, raiz[i]->nome);
+            printf("  [%d] %s\n", raiz[i]->id, raiz[i]->nome);
         }
     }
 
     printf("\nMatriz:\n");
 
     // Primeiro, será printado os IDs dos vértices
-    printf("\t");
+    printf("     ");
     for(int i = 0; i < 100; i++){
         if(raiz[i] != NULL){
-            printf("%3d", raiz[i]->id);
+            printf("%6d", raiz[i]->id);
         }
     }
     printf("\n");
@@ -105,23 +105,20 @@ void mostrarGrafoMatriz(){
     // Depois as linhas da matriz
     for(int i = 0; i < 100; i++){
         if(raiz[i] != NULL){
-            printf("%3d:", raiz[i]->id);
+            printf("%4d:", raiz[i]->id);
             for(int j = 0; j < 100; j++){
-                if(raiz[i] != NULL){
+                if(raiz[j] != NULL){
                     if(EH_PONDERADO){
-                        printf("%.2f", matrizAdj[i][j]);
+                        printf("%6.2f", matrizAdj[i][j]);
                     }
-
                     else{
-                        printf("%.0f", matrizAdj[i][j]);
+                        printf("%6.0f", matrizAdj[i][j]);
                     }
                 }
             }
-
             printf("\n");
         }
     }
-
     printf("\n");
 }
 

@@ -66,12 +66,18 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
     return opcao;
 }
 
-void pausa() { /* FAZ O CÓDIGO DAR UMA PAUSA PARA MOSTRAR MENSAGEM BONITA AO UDUÁRIO */
-    //Essa função serve apenas para que o menu não seja executado direto
-    printf("Aperte a tecla ENTER para continuar...");
-    while (getchar() != '\n'); // limpar buffer
-    //getchar();
-    system("clear"); // só pra dar um ar de nova página
+void pausa() {
+    int c;
+
+    printf("Aperte ENTER para continuar...");
+
+    // limpa caracteres pendentes
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    // espera um novo ENTER
+    getchar();
+
+    system("clear");
 }
 
 int lerIDVertices(){
