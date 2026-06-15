@@ -50,7 +50,35 @@ void adicionarVerticeMatriz(int id, char* texto){
 }
 
 void adicionarArestaMatriz(int inicio, int fim, float peso){
-    printf("Função Não Implementada\n");
+    // Verifica se os vértices escolhidos existem
+    if(!existeVerticeMatriz(inicio)){
+        printf("Não é possível adicionar aresta, pois não existe o vértice inicial (%d)\n", inicio);
+        return;
+    }
+
+    if(!existeVerticeMatriz(fim)){
+        printf("Não é possível adicionar aresta, pois não existe o vértice final (%d)\n", fim);
+        return;
+    }
+
+    // Define peso como 1 se o grafo for não ponderado
+    if(!EH_PONDERADO){
+        peso = 1.0;
+    }
+
+    // Adiciona a aresta para ambos os sentidos, se necessário
+    matrizAdj[inicio][fim] = peso;
+
+    if(!EH_DIRIGIDO){
+        matrizAdj[fim][inicio] = peso;
+    }
+
+    if(EH_PONDERADO){
+        printf("A aresta (%d, %d, %.2f) foi adicionada com sucesso.\n", inicio, fim, peso);
+    }
+    else{
+        printf("A aresta (%d, %d) foi adicionaa com sucesso.\n", inicio, fim);
+    }
 }
 
 void mostrarGrafoMatriz(){
@@ -62,8 +90,9 @@ void descobrirCaminhoMatriz(int, int){
 }
 
 int existeVerticeMatriz(int id){
-    printf("Função Não Implementada\n");
-    return 0;
+    if(id < 0 || id >= 100) return 0;
+    
+    return raiz[id] != NULL; // Retorna 0 se o vertice for NULL e 1 se não for
 }
 
 void removerArestaMatriz(int inicio, int fim){
