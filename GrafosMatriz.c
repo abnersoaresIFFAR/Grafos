@@ -82,7 +82,47 @@ void adicionarArestaMatriz(int inicio, int fim, float peso){
 }
 
 void mostrarGrafoMatriz(){
-    printf("Função Não Implementada\n");
+    printf("\n=== GRAFO EM MATRIZ DE ADJACÊNCIA ===\n");
+    printf("\nVértices:\n");
+
+    for(int i = 0; i < 100; i++){
+        if(raiz[i] != NULL){
+            printf("/t[%d] $s\n", raiz[i]->id, raiz[i]->nome);
+        }
+    }
+
+    printf("\nMatriz:\n");
+
+    // Primeiro, será printado os IDs dos vértices
+    printf("\t");
+    for(int i = 0; i < 100; i++){
+        if(raiz[i] != NULL){
+            printf("%3d", raiz[i]->id);
+        }
+    }
+    printf("\n");
+
+    // Depois as linhas da matriz
+    for(int i = 0; i < 100; i++){
+        if(raiz[i] != NULL){
+            printf("%3d:", raiz[i]->id);
+            for(int j = 0; j < 100; j++){
+                if(raiz[i] != NULL){
+                    if(EH_PONDERADO){
+                        printf("%.2f", matrizAdj[i][j]);
+                    }
+
+                    else{
+                        printf("%.0f", matrizAdj[i][j]);
+                    }
+                }
+            }
+
+            printf("\n");
+        }
+    }
+
+    printf("\n");
 }
 
 void descobrirCaminhoMatriz(int, int){
