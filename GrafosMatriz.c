@@ -143,7 +143,16 @@ void removerVerticeMatriz(int){
     printf("Função Não Implementada\n");
 }
 
-int obterListaIDDosVerticesMatriz(int*){
-    printf("Função Não Implementada\n");
-    return -1;
+int obterListaIDDosVerticesMatriz(int* lista_de_id){
+    int contador = 0;
+    
+    // Percorre todos os vértices e adiciona os IDs válidos na lista
+    for(int i = 0; i < 100; i++){
+        if(raiz[i] != NULL){
+            lista_de_id[contador] = raiz[i]->id;
+            contador++;
+        }
+    }
+
+    return contador;  // Retorna a quantidade de vértices
 }
