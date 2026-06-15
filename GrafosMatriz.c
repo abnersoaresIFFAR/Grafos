@@ -24,7 +24,29 @@ void inicializarGrafoMatriz(int eh_ponderado, int eh_dirigido){
 }
 
 void adicionarVerticeMatriz(int id, char* texto){
-    printf("Função Não Implementada\n");
+    if(id < 0 || id >= 100){
+        printf("ID fora do intervalo permitido (0-99)\n");
+        return;
+    }
+
+    if(raiz[id] != NULL){
+        printf("O vértice com ID %d já existe\n", id);
+        return;
+    }
+
+    raiz[id] = malloc(sizeof(GrafoM));
+    if(raiz[id] == NULL){
+        printf("Erro na alocação de memória para novo vértice\n");
+        return;
+    }
+
+    raiz[id]->id = id;
+    raiz[id]->peso = 0.0;
+    strncpy(raiz[id]->nome, texto, 99);
+    raiz[id]->nome[99] = '\0';
+
+    QUANTIDADE_VERTICES++;
+    printf("Novo vértice (%d) adicionado ao grafo de representação por matriz.\n", id);
 }
 
 void adicionarArestaMatriz(int inicio, int fim, float peso){
