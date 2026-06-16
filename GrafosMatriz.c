@@ -133,11 +133,52 @@ int existeVerticeMatriz(int id){
 }
 
 void removerArestaMatriz(int inicio, int fim){
-    printf("Função Não Implementada\n");
+    // Verifica se cada vértice da aresta existe
+    if(!existeVerticeMatriz(inicio)){
+        printf("Não é possível remover aresta, pois não existe o vértice inicial (%d)\n", inicio);
+        return;
+    }
+
+    if(!existeVerticeMatriz(fim)){
+        printf("Não é possível remover aresta, pois não existe o vértice final (%d)\n", fim);
+        return;
+    }
+
+    // Verifica se a aresta existe
+    if(matrizAdj[inicio][fim] == 0.0){
+        printf("Não existe aresta entre os vértices %d e %d\n", inicio, fim);
+        return;
+    }
+
+    // Caso a aresta exista, será removida nos lados necessários
+    matrizAdj[inicio][fim] = 0.0;
+
+    if(!EH_DIRIGIDO){
+        matrizAdj[fim][inicio] = 0.0;
+    }
+
+    printf("A aresta (%d, %d) for removida com sucesso.\n", inicio, fim);
 }
 
-void removerVerticeMatriz(int){
-    printf("Função Não Implementada\n");
+void removerVerticeMatriz(int id){
+    // Verifica se o vértice sequer existe
+    if(!existeVerticeMatriz(id)){
+        printf("Não é possível remover vértice, pois não existe um vértice com o ID %d\n", id);
+        return;
+    }
+
+    // Libera o espaço na memória
+    free(raiz[id]);
+    raiz[id] = NULL;
+
+    // Remove as arestas que estavam conectadas a esse vértice
+    for(int i = 0; i < 100; i++){
+        matrizAdj[id][i] = 0.0;
+        matrizAdj[i][id] = 0.0;
+    }
+
+    QUANTIDADE_VERTICES--;
+    printf("O vértice %d foi removido com sucesso.\n", id);
 }
 
 int obterListaIDDosVerticesMatriz(int* lista_de_id){
