@@ -1,28 +1,28 @@
 #ifndef ARVOREBINARIADEBUSCA_H
 #define ARVOREBINARIADEBUSCA_H
 
-typedef struct Node{
+typedef struct NodeABB{
     int valor;
-    Node *pai;
-    Node *esq;
-    Node *dir;
-} Node;
+    NodeABB *pai;
+    NodeABB *esq;
+    NodeABB *dir;
+} NodeABB;
 
 // Operações
-void inserirNode(Node *raiz, int valor);
-void removerNode(Node *raiz, int valor);
-void mostrarArvore(Node *raiz);
-void busca(Node *raiz, int valor);
+void inserirNodeABB(int valor);
+void removerNodeABB(int valor);
+void mostrarArvoreABB();
+void buscaABB(int valor);
 
 // Métodos para percorrer a árvore
-void preOrder(Node *raiz);
-void inOrder(Node *raiz);
-void postOrder(Node *raiz);
+void preOrder();
+void inOrder();
+void postOrder();
 
 // Auxiliares
-Node *esquerda(Node *raiz);
-Node *direita(Node *raiz);
-Node *irmao(Node *raiz);
-Node *inicia(Node *raiz, int valor);
+NodeABB *esquerdaABB();
+NodeABB *direitaABB();
+NodeABB *irmaoABB();
+NodeABB *iniciaABB(int valor);
 
 #endif

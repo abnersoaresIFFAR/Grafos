@@ -1,48 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ArvoreBinariaDeBusca.h"
-static Node *raiz;
+static NodeABB *raiz;
 
-Node *esquerda(Node *raiz){
+NodeABB *esquerdaABB(){
     printf("Função Não Implementada\n");
 }
 
-Node *direita(Node *raiz){
+NodeABB *direitaABB(){
     printf("Função Não Implementada\n");
 }
 
-Node *irmao(Node *raiz){
+NodeABB *irmaoABB(){
     printf("Função Não Implementada\n");
 }
 
-Node *inicia(Node *raiz, int valor){
+NodeABB *iniciaABB(int valor){
     printf("Função Não Implementada\n");
 }
 
-void preOrder(Node *raiz){
+void preOrder(){
     printf("Função Não Implementada\n");
 }
 
-void inOrder(Node *raiz){
+void inOrder(){
     printf("Função Não Implementada\n");
 }
 
-void postOrder(Node *raiz){
+void postOrder(){
     printf("Função Não Implementada\n");
 }
 
-void inserirNode(Node *raiz, int valor){
+void inserirNodeABB(int valor){
     printf("Função Não Implementada\n");
 }
 
-void removerNode(Node *raiz, int valor){
+void removerNodeABB(int valor){
     printf("Função Não Implementada\n");
 }
 
-void mostrarArvore(Node *raiz){
+void mostrarArvoreABB(){
     printf("Função Não Implementada\n");
 }
 
-void busca(Node *raiz, int valor){
+void buscaABB(int valor){
     printf("Função Não Implementada\n");
 }
