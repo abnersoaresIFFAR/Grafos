@@ -94,10 +94,54 @@ void inserirNodeABB(int valor){
         pai->dir = novo;
 }
 
-void removerNodeABB(int valor){
-    printf("Função Não Implementada\n");
+NodeABB *removerRecABB(NodeABB *raiz, int valor){
+    if(raiz == NULL){
+        return NULL;
+    }
+
+    if(valor < raiz->valor){
+        raiz->esq = removerRecABB(raiz->esq, valor);
+    }
+
+    else if(valor > raiz->valor){
+        raiz->dir = removerRecABB(raiz->dir, valor);
+    }
+
+    else{
+        if(raiz->esq == NULL && raiz->dir == NULL){
+            free(raiz);
+            return NULL;
+        }
+
+        else if(raiz->esq == NULL){
+            NodeABB* temp = raiz->dir;
+            free(raiz);
+            return temp;
+        }
+
+        else if(raiz->dir == NULL){
+            NodeABB* temp = raiz->esq;
+            free(raiz);
+            return temp;
+        }
+
+        else{
+            NodeABB* sucessor = raiz->dir;
+            while(sucessor->esq != NULL){
+                sucessor = sucessor->esq;
+            }
+            
+            raiz->valor = sucessor->valor;
+            raiz->dir = removerRecABB(raiz->dir, sucessor->valor);
+        }
+    }
+
+    return raiz;
 }
 
+void removerNodeABB(int valor){
+    raiz = removerRecABB(raiz, valor);
+}
 
 void mostrarArvoreABB(){
     if(raiz == NULL){
