@@ -35,6 +35,7 @@ void inserirNodeABB(int valor){
 
     if(raiz == NULL){
         raiz = novo;
+        printf("Nó criado com sucesso!\n");
         return;
     }
 
@@ -50,6 +51,8 @@ void inserirNodeABB(int valor){
             atual = atual->dir;
         else{
             free(novo);
+
+            printf("Um nó com esse valor já existe na árvore!\n");
             return;
         }
     }
@@ -58,10 +61,13 @@ void inserirNodeABB(int valor){
         anterior->esq = novo;
     else
         anterior->dir = novo;
+
+    printf("Nó criado com sucesso!\n");
 }
 
 NodeABB *removerRecABB(NodeABB *raiz, int valor){
     if(raiz == NULL){
+        printf("Um nó com o valor não foi encontrado\n");
         return NULL;
     }
 
@@ -76,18 +82,24 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
     else{
         if(raiz->esq == NULL && raiz->dir == NULL){
             free(raiz);
+
+            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return NULL;
         }
 
         else if(raiz->esq == NULL){
             NodeABB* temp = raiz->dir;
             free(raiz);
+
+            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return temp;
         }
 
         else if(raiz->dir == NULL){
             NodeABB* temp = raiz->esq;
             free(raiz);
+
+            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return temp;
         }
 
