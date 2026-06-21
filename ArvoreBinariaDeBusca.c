@@ -1,22 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ArvoreBinariaDeBusca.h"
+#include "IACODES.h"
+
 static NodeABB *raiz;
 
-NodeABB *esquerdaABB(){
-    printf("Função Não Implementada\n");
+NodeABB *esquerdaABB(NodeABB *node){
+    if(node == NULL)
+        return NULL;
+
+    return node->esq;
 }
 
-NodeABB *direitaABB(){
-    printf("Função Não Implementada\n");
+NodeABB *direitaABB(NodeABB *node){
+    if(node == NULL)
+        return NULL;
+
+    return node->dir;
 }
 
-NodeABB *irmaoABB(){
-    printf("Função Não Implementada\n");
+NodeABB *irmaoABB(NodeABB *node){
+    if(node == NULL || node->pai == NULL)
+        return NULL;
+
+    if(node == node->pai->esq)
+        return node->pai->dir;
+
+    return node->pai->esq;
 }
 
-NodeABB *iniciaABB(int valor){
-    printf("Função Não Implementada\n");
+NodeABB *paiABB(NodeABB *node){
+    if(node == NULL)
+        return NULL;
+
+    return node->pai;
+}
+
+void iniciaABB(){
+    raiz = NULL;
 }
 
 void preOrder(){
@@ -32,15 +53,60 @@ void postOrder(){
 }
 
 void inserirNodeABB(int valor){
-    printf("Função Não Implementada\n");
+    NodeABB *novo = malloc(sizeof(NodeABB));
+
+    if(novo == NULL){
+        printf("Erro de alocação\n");
+        return;
+    }
+
+    novo->valor = valor;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    novo->pai = NULL;
+
+    if(raiz == NULL){
+        raiz = novo;
+        return;
+    }
+
+    NodeABB *atual = raiz;
+    NodeABB *pai = NULL;
+
+    while(atual != NULL){
+        pai = atual;
+
+        if(valor < atual->valor)
+            atual = atual->esq;
+        else if(valor > atual->valor)
+            atual = atual->dir;
+        else{
+            free(novo);
+            return;
+        }
+    }
+
+    novo->pai = pai;
+
+    if(valor < pai->valor)
+        pai->esq = novo;
+    else
+        pai->dir = novo;
 }
 
 void removerNodeABB(int valor){
     printf("Função Não Implementada\n");
 }
 
+
 void mostrarArvoreABB(){
-    printf("Função Não Implementada\n");
+    if(raiz == NULL){
+        printf("A árvore está atualmente vazia\n");
+        return;
+    }
+
+    printf("\n=== ÁRVORE (vista lateralmente) ===\n");
+    mostrarArvoreAux(raiz, 0);
 }
 
 void buscaABB(int valor){

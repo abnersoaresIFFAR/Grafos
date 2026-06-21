@@ -20,7 +20,7 @@ typedef enum {INVALIDO, GRAFICA, LISTA, MATRIZ} GRAFOMETODO; // armazena o méto
 typedef enum {EH_DIRIGIDO, NAO_EH_DIRIGIDO} DIRECAO; // informa se o grafo é ou não é direcionado
 typedef enum {EH_PONDERADO, NAO_EH_PONDERADO} PONDERACAO; // informa se o grafo é ou não é ponderado
 typedef enum {GRAFOS, ARVORES} ESTRUTURA; // informa se será trabalhado com grafos ou árvores
-typedef enum {INVALIDO, ABB, ARN} ARVOREMETODO; // armazena o método a se trabalhar com árvores
+typedef enum {INVALIDA, ABB, ARN} ARVOREMETODO; // armazena o método a se trabalhar com árvores
 
 // VALORES INICIAIS DO PROGRAMA
 int UNICID = 0;
@@ -28,14 +28,14 @@ GRAFOMETODO GRAFMET = INVALIDO;
 DIRECAO QUALDIRECAO = NAO_EH_DIRIGIDO;
 PONDERACAO QUALPONDERACAO = NAO_EH_PONDERADO;
 ESTRUTURA QUALESTRUTURA = GRAFOS;
-ARVOREMETODO ARVMET = INVALIDO;
+ARVOREMETODO ARVMET = INVALIDA;
 
 // SÉRIE DE FUNÇÕES PRÁTICAS
 int 
 MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
     int opcao;
     while(1){ // repita pra sempre
-        if(GRAFMET == INVALIDO && ARVMET == INVALIDO){
+        if(GRAFMET == INVALIDO && ARVMET == INVALIDA){
             printf("Por favor, escolha um método de se trabalhar com\n");
             printf("\n    === GRAFOS ===\n");
             printf("[1] Grafos com representação gráfica\n");
@@ -68,7 +68,7 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             }
         }
 
-        else if(ARVMET != INVALIDO){ // se for diferente de inválido, foi escolhido algo entre as árvores
+        else if(ARVMET != INVALIDA){ // se for diferente de inválido, foi escolhido algo entre as árvores
             QUALESTRUTURA = ARVORES;
             printf("Por favor, escolha uma opção:\n");
 
@@ -297,6 +297,12 @@ void descobrirCaminho(){
     }
 }
 
+void inicializarArvore(){
+    if(ARVMET == ABB){
+        iniciaABB();
+    }
+}
+
 void inserirNode(){
     int val;
     val = IA_lerInteiro("Diga o valor que deseja armazenar no nó adicionado: ");
@@ -305,6 +311,7 @@ void inserirNode(){
         inserirNodeABB(val);
     }
 }
+
 void removerNode(){
     int val;
     val = IA_lerInteiro("Diga o valor do nó que deseja remover: ");
@@ -313,11 +320,13 @@ void removerNode(){
         removerNodeABB(val);
     }
 }
+
 void mostrarArvore(){
     if(ARVMET == ABB){
         mostrarArvoreABB();
     }
 }
+
 void busca(){
     int val;
     val = IA_lerInteiro("Diga o valor do nó que deseja procurar: ");
@@ -337,7 +346,7 @@ int main(){
         opcaomenu = MENU();
 
         // primeira execução será sempre essa daqui, definindo tipo de grafo
-        if(GRAFMET == INVALIDO && ARVMET == INVALIDO){
+        if(GRAFMET == INVALIDO && ARVMET == INVALIDA){
             
             if(opcaomenu == 1){
                 GRAFMET = GRAFICA;
@@ -355,6 +364,13 @@ int main(){
                 QUALESTRUTURA = ARVORES;
                 ARVMET = ABB;
                 printf("Aplicando sistema de árvore binaria de busca...\n");
+            }
+
+            if(GRAFMET != INVALIDO){
+                inicializarGrafo();
+            }
+            else if(ARVMET != INVALIDA){
+                inicializarArvore();
             }
         }
         else{

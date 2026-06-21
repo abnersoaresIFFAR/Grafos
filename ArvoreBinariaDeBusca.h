@@ -3,9 +3,9 @@
 
 typedef struct NodeABB{
     int valor;
-    NodeABB *pai;
-    NodeABB *esq;
-    NodeABB *dir;
+    struct NodeABB *pai;
+    struct NodeABB *esq;
+    struct NodeABB *dir;
 } NodeABB;
 
 // Operações
@@ -23,6 +23,7 @@ void postOrder();
 NodeABB *esquerdaABB();
 NodeABB *direitaABB();
 NodeABB *irmaoABB();
-NodeABB *iniciaABB(int valor);
+NodeABB *paiABB(NodeABB *node);
+void iniciaABB();
 
 #endif

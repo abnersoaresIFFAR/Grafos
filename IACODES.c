@@ -149,3 +149,17 @@ void IA_mostrarGrafoGrafica(GrafoG* raiz[], int quantidade_vertices, int eh_diri
 
     printf("Grafo renderizado com sucesso.\n");
 }
+
+void mostrarArvoreAux(NodeABB *node, int nivel){
+    if(node == NULL)
+        return;
+
+    mostrarArvoreAux(node->dir, nivel + 1);
+
+    for(int i = 0; i < nivel; i++)
+        printf("        ");
+
+    printf("%d\n", node->valor);
+
+    mostrarArvoreAux(node->esq, nivel + 1);
+}
