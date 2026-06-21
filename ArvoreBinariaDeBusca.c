@@ -110,5 +110,20 @@ void mostrarArvoreABB(){
 }
 
 void buscaABB(int valor){
-    printf("Função Não Implementada\n");
+    NodeABB *aux = raiz;
+    
+    while(aux != NULL){
+        if(valor > aux->valor){
+            aux = aux->dir;
+        }
+        else if(valor < aux->valor){
+            aux = aux->esq;
+        }
+        else if(valor == aux->valor){
+            printf("Um nó com este valor existe na árvore!\n");
+            return;
+        }
+    }
+
+    printf("Não existe um nó com este valor na árvore!\n");
 }

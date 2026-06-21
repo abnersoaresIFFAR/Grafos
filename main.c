@@ -43,7 +43,7 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("[3] Grafo com matriz de adjacência\n");
             printf("\n    === ÁRVORES ===\n");
             printf("[4] Árvore Binária de Busca\n");
-            printf("Opte apenas por [1], [2], [3] ou [4]: ");
+            printf("\nOpte apenas por [1], [2], [3] ou [4]: ");
             scanf("%d", &opcao);
             if(opcao < 1 || opcao > 4){
                 printf("Valor inválido digitado\n");
