@@ -14,9 +14,9 @@ void mostrarArvoreABB();
 void buscaABB(int valor);
 
 // Métodos para percorrer a árvore
-void preOrder();
-void inOrder();
-void postOrder();
+void preOrder(NodeABB *raiz);
+void inOrder(NodeABB *raiz);
+void postOrder(NodeABB *raiz);
 
 // Auxiliares
 void iniciaABB();

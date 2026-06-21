@@ -43,8 +43,8 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("[3] Grafo com matriz de adjacência\n");
             printf("\n    === ÁRVORES ===\n");
             printf("[4] Árvore Binária de Busca\n");
-            printf("\nOpte apenas por [1], [2], [3] ou [4]: ");
-            scanf("%d", &opcao);
+            opcao = IA_lerInteiro("\nOpte apenas por [1], [2], [3] ou [4]: ");
+            
             if(opcao < 1 || opcao > 4){
                 printf("Valor inválido digitado\n");
                 continue;
@@ -60,8 +60,7 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("[5] Ver Grafo\n");
             printf("[6] Descobrir Caminho\n");
             printf("[0] SAIR\n");
-            printf("Opte apenas por [1], [2], [3], [4], [5], [6] ou [0]: ");
-            scanf("%d", &opcao);
+            opcao = IA_lerInteiro("Opte apenas por [1], [2], [3], [4], [5], [6] ou [0]: ");
             if(opcao < 0 || opcao > 6){
                 printf("Valor inválido digitado\n");
                 continue;
@@ -77,8 +76,7 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("[3] Ver Árvore\n");
             printf("[4] Buscar Valor na Árvore\n");
             printf("[0] SAIR\n");
-            printf("Opte apenas por [1], [2], [3], [4] ou [0]: ");
-            scanf("%d", &opcao);
+            opcao = IA_lerInteiro("Opte apenas por [1], [2], [3], [4] ou [0]: ");
             if(opcao < 0 || opcao > 4){
                 printf("Valor inválido digitado\n");
                 continue;
@@ -92,16 +90,8 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
 }
 
 void pausa() {
-    int c;
-
     printf("Aperte ENTER para continuar...");
-
-    // limpa caracteres pendentes
-    while ((c = getchar()) != '\n' && c != EOF);
-
-    // espera um novo ENTER
     getchar();
-
     system("clear");
 }
 

@@ -9,16 +9,34 @@ void iniciaABB(){
     raiz = NULL;
 }
 
-void preOrder(){
-    printf("Função Não Implementada\n");
+void preOrder(NodeABB *raiz){
+    if(raiz == NULL){
+        return;
+    }
+
+    printf("%d  ", raiz->valor);
+    preOrder(raiz->esq);
+    preOrder(raiz->dir);
 }
 
-void inOrder(){
-    printf("Função Não Implementada\n");
+void inOrder(NodeABB *raiz){
+    if(raiz == NULL){
+        return;
+    }
+
+    preOrder(raiz->esq);
+    printf("%d  ", raiz->valor);
+    preOrder(raiz->dir);
 }
 
-void postOrder(){
-    printf("Função Não Implementada\n");
+void postOrder(NodeABB *raiz){
+    if(raiz == NULL){
+        return;
+    }
+
+    postOrder(raiz->esq);
+    postOrder(raiz->dir);
+    printf("%d  ", raiz->valor);
 }
 
 void inserirNodeABB(int valor){
@@ -127,8 +145,50 @@ void mostrarArvoreABB(){
         return;
     }
 
-    printf("\n=== ÁRVORE (vista lateralmente) ===\n");
-    mostrarArvoreAux(raiz, 0);
+    int escolha = -1;
+
+    while(escolha < 0 || escolha > 4){
+        printf("\nPor favor, escolha como a árvore será mostrada:\n");
+        printf("[1] Toda a árvore\n");
+        printf("[2] Pré-Ordem\n");
+        printf("[3] Em-Ordem\n");
+        printf("[4] Pós-Ordem\n");
+        printf("[0] Cancelar\n");
+
+        escolha = IA_lerInteiro("\nOpte apenas por [1], [2], [3] ou [4]: ");
+    }
+
+    switch(escolha){
+        case 0:
+            printf("Cancelando...\n");
+            return;
+            break;
+        
+        case 1:
+            printf("\n=== ÁRVORE INTEIRA (vista lateralmente) ===\n");
+            mostrarArvoreAux(raiz, 0);
+            printf("\n");
+            break;
+
+        case 2:
+            printf("\n=== PRÉ-ORDEM ===\n");
+            preOrder(raiz);
+            printf("\n");
+            break;
+
+        case 3:
+            printf("\n=== EM-ORDEM ===\n");
+            inOrder(raiz);
+            printf("\n");
+            break;
+
+        case 4:
+            printf("\n=== PÓS-ORDEM ===\n");
+            postOrder(raiz);
+            break;
+
+    }
+    
 }
 
 void buscaABB(int valor){
