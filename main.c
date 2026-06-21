@@ -13,36 +13,44 @@ Instituto Federal Farroupilha
 #include "GrafosLista.h"
 #include "GrafosMatriz.h"
 #include "IACODES.h"
+#include "ArvoreBinariaDeBusca.h"
 
 // VARIAVEIS GLOBAIS
 typedef enum {INVALIDO, GRAFICA, LISTA, MATRIZ} GRAFOMETODO; // armazena o método de se trabalhar com grafos
 typedef enum {EH_DIRIGIDO, NAO_EH_DIRIGIDO} DIRECAO; // informa se o grafo é ou não é direcionado
 typedef enum {EH_PONDERADO, NAO_EH_PONDERADO} PONDERACAO; // informa se o grafo é ou não é ponderado
+typedef enum {GRAFOS, ARVORES} ESTRUTURA; // informa se será trabalhado com grafos ou árvores
+typedef enum {INVALIDO, ABB, ARN} ARVOREMETODO; // armazena o método a se trabalhar com árvores
 
 // VALORES INICIAIS DO PROGRAMA
 int UNICID = 0;
 GRAFOMETODO GRAFMET = INVALIDO;
 DIRECAO QUALDIRECAO = NAO_EH_DIRIGIDO;
 PONDERACAO QUALPONDERACAO = NAO_EH_PONDERADO;
+ESTRUTURA QUALESTRUTURA = GRAFOS;
+ARVOREMETODO ARVMET = INVALIDO;
 
 // SÉRIE DE FUNÇÕES PRÁTICAS
 int 
 MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
     int opcao;
     while(1){ // repita pra sempre
-        if(GRAFMET == INVALIDO){
-            printf("Por favor, escolha um método de se trabalhar com grafos:\n");
+        if(GRAFMET == INVALIDO && ARVMET == INVALIDO){
+            printf("Por favor, escolha um método de se trabalhar com\n");
+            printf("\n    === GRAFOS ===\n");
             printf("[1] Grafos com representação gráfica\n");
             printf("[2] Grafo com lista de adjacência\n");
             printf("[3] Grafo com matriz de adjacência\n");
-            printf("Opte apenas por [1], [2] ou [3]: ");
+            printf("\n    === ÁRVORES ===\n");
+            printf("[4] Árvore Binária de Busca\n");
+            printf("Opte apenas por [1], [2], [3] ou [4]: ");
             scanf("%d", &opcao);
-            if(opcao < 1 || opcao > 3){
+            if(opcao < 1 || opcao > 4){
                 printf("Valor inválido digitado\n");
                 continue;
             }
         }
-        else{
+        else if(GRAFMET != INVALIDO){ // se for diferente de inválido, foi escolhido algo entre os grafos
             printf("Por favor, escolha uma opção:\n");
             
             printf("[1] Adicionar Vértice\n");
@@ -55,6 +63,23 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("Opte apenas por [1], [2], [3], [4], [5], [6] ou [0]: ");
             scanf("%d", &opcao);
             if(opcao < 0 || opcao > 6){
+                printf("Valor inválido digitado\n");
+                continue;
+            }
+        }
+
+        else if(ARVMET != INVALIDO){ // se for diferente de inválido, foi escolhido algo entre as árvores
+            QUALESTRUTURA = ARVORES;
+            printf("Por favor, escolha uma opção:\n");
+
+            printf("[1] Inserir Nó\n");
+            printf("[2] Remover Nó\n");
+            printf("[3] Ver Árvore\n");
+            printf("[4] Buscar Valor na Árvore\n");
+            printf("[0] SAIR\n");
+            printf("Opte apenas por [1], [2], [3], [4] ou [0]: ");
+            scanf("%d", &opcao);
+            if(opcao < 0 || opcao > 4){
                 printf("Valor inválido digitado\n");
                 continue;
             }
@@ -272,6 +297,36 @@ void descobrirCaminho(){
     }
 }
 
+void inserirNode(){
+    int val;
+    val = IA_lerInteiro("Diga o valor que deseja armazenar no nó adicionado: ");
+
+    if(ARVMET == ABB){
+        inserirNodeABB(val);
+    }
+}
+void removerNode(){
+    int val;
+    val = IA_lerInteiro("Diga o valor do nó que deseja remover: ");
+
+    if(ARVMET == ABB){
+        removerNodeABB(val);
+    }
+}
+void mostrarArvore(){
+    if(ARVMET == ABB){
+        mostrarArvoreABB();
+    }
+}
+void busca(){
+    int val;
+    val = IA_lerInteiro("Diga o valor do nó que deseja procurar: ");
+
+    if(ARVMET == ABB){
+        buscaABB(val);
+    }
+}
+
 int main(){
     //variáveis que auxiliam o fluxo de interação
     int opcaomenu;
@@ -281,7 +336,9 @@ int main(){
     do{ //repete pra sempre
         opcaomenu = MENU();
 
-        if(GRAFMET == INVALIDO){ // primeira execução será sempre essa daqui, definindo tipo de grafo
+        // primeira execução será sempre essa daqui, definindo tipo de grafo
+        if(GRAFMET == INVALIDO && ARVMET == INVALIDO){
+            
             if(opcaomenu == 1){
                 GRAFMET = GRAFICA;
                 printf("Aplicando sistema de grafos com representação gráfica...\n");
@@ -294,15 +351,27 @@ int main(){
                 GRAFMET = MATRIZ;
                 printf("Aplicando sistema de grafos com matriz de adjacência...\n");
             }
-            inicializarGrafo();
+            else if(opcaomenu == 4){
+                QUALESTRUTURA = ARVORES;
+                ARVMET = ABB;
+                printf("Aplicando sistema de árvore binaria de busca...\n");
+            }
         }
         else{
-            if     (opcaomenu == 1) adicionarVertice();
-            else if(opcaomenu == 2) adicionarAresta();
-            else if(opcaomenu == 3) removerAresta();
-            else if(opcaomenu == 4) removerVertice();
-            else if(opcaomenu == 5) mostrarGrafo();
-            else if(opcaomenu == 6) descobrirCaminho();
+            if(QUALESTRUTURA == GRAFOS){
+                if     (opcaomenu == 1) adicionarVertice();
+                else if(opcaomenu == 2) adicionarAresta();
+                else if(opcaomenu == 3) removerAresta();
+                else if(opcaomenu == 4) removerVertice();
+                else if(opcaomenu == 5) mostrarGrafo();
+                else if(opcaomenu == 6) descobrirCaminho();
+            }
+            else if(QUALESTRUTURA == ARVORES){
+                if     (opcaomenu == 1) inserirNode();
+                else if(opcaomenu == 2) removerNode();
+                else if(opcaomenu == 3) mostrarArvore();
+                else if(opcaomenu == 4) busca();
+            }
         }
 
         if(opcaomenu != 0) pausa();
