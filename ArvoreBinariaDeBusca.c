@@ -5,37 +5,6 @@
 
 static NodeABB *raiz;
 
-NodeABB *esquerdaABB(NodeABB *node){
-    if(node == NULL)
-        return NULL;
-
-    return node->esq;
-}
-
-NodeABB *direitaABB(NodeABB *node){
-    if(node == NULL)
-        return NULL;
-
-    return node->dir;
-}
-
-NodeABB *irmaoABB(NodeABB *node){
-    if(node == NULL || node->pai == NULL)
-        return NULL;
-
-    if(node == node->pai->esq)
-        return node->pai->dir;
-
-    return node->pai->esq;
-}
-
-NodeABB *paiABB(NodeABB *node){
-    if(node == NULL)
-        return NULL;
-
-    return node->pai;
-}
-
 void iniciaABB(){
     raiz = NULL;
 }
@@ -63,7 +32,6 @@ void inserirNodeABB(int valor){
     novo->valor = valor;
     novo->esq = NULL;
     novo->dir = NULL;
-    novo->pai = NULL;
 
     if(raiz == NULL){
         raiz = novo;
@@ -71,10 +39,10 @@ void inserirNodeABB(int valor){
     }
 
     NodeABB *atual = raiz;
-    NodeABB *pai = NULL;
+    NodeABB *anterior = NULL;
 
     while(atual != NULL){
-        pai = atual;
+        anterior = atual;
 
         if(valor < atual->valor)
             atual = atual->esq;
@@ -86,12 +54,10 @@ void inserirNodeABB(int valor){
         }
     }
 
-    novo->pai = pai;
-
-    if(valor < pai->valor)
-        pai->esq = novo;
+    if(valor < anterior->valor)
+        anterior->esq = novo;
     else
-        pai->dir = novo;
+        anterior->dir = novo;
 }
 
 NodeABB *removerRecABB(NodeABB *raiz, int valor){
@@ -130,7 +96,7 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
             while(sucessor->esq != NULL){
                 sucessor = sucessor->esq;
             }
-            
+
             raiz->valor = sucessor->valor;
             raiz->dir = removerRecABB(raiz->dir, sucessor->valor);
         }

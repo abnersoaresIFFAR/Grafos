@@ -3,7 +3,6 @@
 
 typedef struct NodeABB{
     int valor;
-    struct NodeABB *pai;
     struct NodeABB *esq;
     struct NodeABB *dir;
 } NodeABB;
@@ -20,10 +19,6 @@ void inOrder();
 void postOrder();
 
 // Auxiliares
-NodeABB *esquerdaABB();
-NodeABB *direitaABB();
-NodeABB *irmaoABB();
-NodeABB *paiABB(NodeABB *node);
 void iniciaABB();
 
 #endif
