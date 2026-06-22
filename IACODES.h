@@ -10,6 +10,6 @@ void IA_lerTexto(char*, int, const char *);
 
 void IA_mostrarGrafoGrafica(); // função que gera o grafo em versão visual
 
-void mostrarArvoreAux(NodeABB *node, int nivel);
+void mostrarArvoreAux(NodeABB *node, int nivel); // função que vai mostrar a árvore inteira deitada
 
 #endif //IACODES_H
