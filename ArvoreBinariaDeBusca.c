@@ -99,7 +99,6 @@ void inserirNodeABB(int valor){
 NodeABB *removerRecABB(NodeABB *raiz, int valor){
     // Se raiz for NULL ou a árvore está vazia ou a função percorreu toda a árvore
     if(raiz == NULL){
-        printf("Um nó com o valor não foi encontrado\n");
         return NULL;
     }
 
@@ -118,7 +117,6 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
         if(raiz->esq == NULL && raiz->dir == NULL){
             free(raiz);
 
-            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return NULL;
         }
 
@@ -127,7 +125,6 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
             NodeABB* temp = raiz->dir;
             free(raiz);
 
-            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return temp;
         }
 
@@ -136,7 +133,6 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
             NodeABB* temp = raiz->esq;
             free(raiz);
 
-            printf("O nó com o valor inserido foi removido com sucesso!\n");
             return temp;
         }
 
@@ -159,7 +155,15 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
 
 // Função "pública" para ser chamada na main
 void removerNodeABB(int valor){
-    raiz = removerRecABB(raiz, valor);
+    // Se valor existe na árvore, será removido
+    if(buscaABB(valor)){
+        raiz = removerRecABB(raiz, valor);
+        printf("Nó com valor escolhido foi removido com sucesso!\n");
+    }
+    else{
+        printf("Um nó com o valor escolhido não existe na árvore!\n");
+    }
+    
 }
 
 // Oferece ao usuário a opção de escolher como a árvore vai ser mostrada
@@ -217,7 +221,7 @@ void mostrarArvoreABB(){
 }
 
 // Busca se existe algum nó com o valor indicado na árvore
-void buscaABB(int valor){
+int buscaABB(int valor){
     // Cria um ponteiro auxiliar que percorre a árvore
     NodeABB *aux = raiz;
     
@@ -228,12 +232,11 @@ void buscaABB(int valor){
         else if(valor < aux->valor){
             aux = aux->esq;
         }
-        else if(valor == aux->valor){
-            printf("Um nó com este valor existe na árvore!\n");
-            return;
+        else{
+            return 1;
         }
     }
 
     // Se a execução não acabar no loop, o valor não existe na árvore
-    printf("Não existe um nó com este valor na árvore!\n");
+    return 0;
 }

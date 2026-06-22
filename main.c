@@ -322,7 +322,12 @@ void busca(){
     val = IA_lerInteiro("Diga o valor do nó que deseja procurar: ");
 
     if(ARVMET == ABB){
-        buscaABB(val);
+        if(buscaABB(val)){
+            printf("Um nó com o valor escolhido existe na árvore!\n");
+        }
+        else{
+            printf("Um nó com o valor escolhido não existe na árvore!\n");
+        }
     }
 }
 

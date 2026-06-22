@@ -11,7 +11,7 @@ typedef struct NodeABB{
 void inserirNodeABB(int valor);
 void removerNodeABB(int valor);
 void mostrarArvoreABB();
-void buscaABB(int valor);
+int buscaABB(int valor);
 
 // Métodos para percorrer a árvore
 void preOrder(NodeABB *raiz);
