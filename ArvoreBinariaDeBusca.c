@@ -53,6 +53,7 @@ void inserirNodeABB(int valor){
 
     // Define valor e filhos como NULL (é folha)
     novo->valor = valor;
+    novo->pai = NULL;
     novo->esq = NULL;
     novo->dir = NULL;
 
@@ -87,6 +88,9 @@ void inserirNodeABB(int valor){
         }
     }
 
+    // Define o pai do novo nó como o nó anterior a ele
+    novo->pai = anterior;
+
     // Determinaa se o nó a ser inseridp vai ficar na esquerda ou na direita do último nó válido encontrado 
     if(valor < anterior->valor)
         anterior->esq = novo;
@@ -105,10 +109,18 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
     // Navega para a esquerda/direita até chegar ao final da árvore ou parar no valor
     if(valor < raiz->valor){
         raiz->esq = removerRecABB(raiz->esq, valor);
+
+        if(raiz->esq != NULL){
+            raiz->esq->pai = raiz;
+        }
     }
 
     else if(valor > raiz->valor){
         raiz->dir = removerRecABB(raiz->dir, valor);
+
+        if(raiz->dir != NULL){
+            raiz->dir->pai = raiz;
+        }
     }
 
     // Indica que um nó com o valor indicado foi encontrado e começa a avaliar qual é o caso da remoção
@@ -123,6 +135,8 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
         // CASO 2: Será removido um nó com um filho direito
         else if(raiz->esq == NULL){
             NodeABB* temp = raiz->dir;
+            temp->pai = raiz->pai;
+            
             free(raiz);
 
             return temp;
@@ -131,6 +145,8 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
         // CASO 3: Será removido um nó com um filho esquerdo
         else if(raiz->dir == NULL){
             NodeABB* temp = raiz->esq;
+            temp->pai = raiz->pai;
+
             free(raiz);
 
             return temp;
@@ -147,6 +163,10 @@ NodeABB *removerRecABB(NodeABB *raiz, int valor){
             // Substitui valores entre nó a ser removido e sucessor e remove sucessor original
             raiz->valor = sucessor->valor;
             raiz->dir = removerRecABB(raiz->dir, sucessor->valor);
+
+            if(raiz->dir != NULL){
+                raiz->dir->pai = raiz;
+            }
         }
     }
 
@@ -158,6 +178,12 @@ void removerNodeABB(int valor){
     // Se valor existe na árvore, será removido
     if(buscaABB(valor)){
         raiz = removerRecABB(raiz, valor);
+
+        // Coloca o pai da possível nova raiz como NULL
+        if(raiz != NULL){
+            raiz->pai = NULL;
+        }
+        
         printf("Nó com valor escolhido foi removido com sucesso!\n");
     }
     else{

@@ -3,6 +3,7 @@
 
 typedef struct NodeABB{
     int valor;
+    struct NodeABB *pai;
     struct NodeABB *esq;
     struct NodeABB *dir;
 } NodeABB;
