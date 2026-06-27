@@ -163,6 +163,26 @@ void rotacaoDir(NodeARN *node){
     node->pai = aux;
 }
 
+int buscaARN(int valor){
+    // Cria um ponteiro auxiliar que percorre a árvore
+    NodeARN *aux = raiz;
+    
+    while(aux != NULL){
+        if(valor > aux->valor){
+            aux = aux->dir;
+        }
+        else if(valor < aux->valor){
+            aux = aux->esq;
+        }
+        else{
+            return 1;
+        }
+    }
+
+    // Se a execução não acabar no loop, o valor não existe na árvore
+    return 0;
+}
+
 void inserirNodeARN(int valor){
     NodeARN *novo = malloc(sizeof(NodeARN));
 
