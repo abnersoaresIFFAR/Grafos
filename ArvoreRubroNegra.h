@@ -22,9 +22,13 @@ void preOrder(NodeARN *raiz);
 void inOrder(NodeARN *raiz);
 void postOrder(NodeARN *raiz);
 
+// Rotações
+void rotacaoEsq(NodeARN *node);
+void rotacaoDir(NodeARN *node);
+
 // Correções
-void corrigirInsercao();
-void corrigirRemocao();
+void corrigirInsercao(NodeARN *node);
+void corrigirRemocao(NodeARN *node);
 
 // Auxiliares
 void iniciaARN();
