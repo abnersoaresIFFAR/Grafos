@@ -32,5 +32,7 @@ void corrigirRemocao(NodeARN *node);
 
 // Auxiliares
 void iniciaARN();
+NodeARN *sucessor(NodeARN *node);
+void transplante(NodeARN *u, NodeARN *v);
 
 #endif

@@ -325,3 +325,29 @@ void corrigirInsercao(NodeARN *node){
     // A raiz deve ser sempre preta
     raiz->cor = false;
 }
+
+NodeARN *sucessor(NodeARN *node){
+    while(node->esq != NULL){
+        node = node->esq;
+    }
+
+    return node;
+}
+
+void transplant(NodeARN *u, NodeARN *v){
+    if(u->pai == NULL){
+        raiz = v;
+    }
+
+    else if(u == u->pai->esq){
+        u->pai->esq = v;
+    }
+
+    else{
+        u->pai->dir = v;
+    }
+
+    if(v != NULL){
+        v->pai = u->pai;
+    }
+}
