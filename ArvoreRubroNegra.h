@@ -15,7 +15,7 @@ typedef struct NodeARN{
 void inserirNodeARN(int valor);
 void removerNodeARN(int valor);
 void mostrarArvoreARN();
-int buscaARN(int valor);
+NodeARN *buscaARN(int valor);
 
 // Métodos para percorrer a árvore
 void preOrderARN(NodeARN *raiz);

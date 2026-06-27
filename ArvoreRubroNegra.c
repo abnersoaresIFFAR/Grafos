@@ -163,7 +163,7 @@ void rotacaoDir(NodeARN *node){
     node->pai = aux;
 }
 
-int buscaARN(int valor){
+NodeARN *buscaARN(int valor){
     // Cria um ponteiro auxiliar que percorre a árvore
     NodeARN *aux = raiz;
     
@@ -175,12 +175,12 @@ int buscaARN(int valor){
             aux = aux->esq;
         }
         else{
-            return 1;
+            return aux;
         }
     }
 
     // Se a execução não acabar no loop, o valor não existe na árvore
-    return 0;
+    return NULL;
 }
 
 void inserirNodeARN(int valor){
