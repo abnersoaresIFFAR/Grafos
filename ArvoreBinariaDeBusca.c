@@ -11,35 +11,35 @@ void iniciaABB(){
 }
 
 // Pré-Ordem = raiz - esquerda - direita
-void preOrder(NodeABB *raiz){
+void preOrderABB(NodeABB *raiz){
     if(raiz == NULL){
         return;
     }
 
     printf("%d  ", raiz->valor);
-    preOrder(raiz->esq);
-    preOrder(raiz->dir);
+    preOrderABB(raiz->esq);
+    preOrderABB(raiz->dir);
 }
 
 // Em-Ordem = esquerda - raiz - direita
-void inOrder(NodeABB *raiz){
+void inOrderABB(NodeABB *raiz){
     if(raiz == NULL){
         return;
     }
 
-    inOrder(raiz->esq);
+    inOrderABB(raiz->esq);
     printf("%d  ", raiz->valor);
-    inOrder(raiz->dir);
+    inOrderABB(raiz->dir);
 }
 
 // Pós-Ordem = esquerda - direita - raiz
-void postOrder(NodeABB *raiz){
+void postOrderABB(NodeABB *raiz){
     if(raiz == NULL){
         return;
     }
 
-    postOrder(raiz->esq);
-    postOrder(raiz->dir);
+    postOrderABB(raiz->esq);
+    postOrderABB(raiz->dir);
     printf("%d  ", raiz->valor);
 }
 
@@ -220,25 +220,25 @@ void mostrarArvoreABB(){
         
         case 1:
             printf("\n=== ÁRVORE INTEIRA (vista lateralmente) ===\n");
-            mostrarArvoreAux(raiz, 0);
+            mostrarArvoreBBAux(raiz, 0);
             printf("\n");
             break;
 
         case 2:
             printf("\n=== PRÉ-ORDEM ===\n");
-            preOrder(raiz);
+            preOrderABB(raiz);
             printf("\n");
             break;
 
         case 3:
             printf("\n=== EM-ORDEM ===\n");
-            inOrder(raiz);
+            inOrderABB(raiz);
             printf("\n");
             break;
 
         case 4:
             printf("\n=== PÓS-ORDEM ===\n");
-            postOrder(raiz);
+            postOrderABB(raiz);
             printf("\n");
             break;
 

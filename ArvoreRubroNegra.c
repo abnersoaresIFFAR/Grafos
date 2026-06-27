@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ArvoreRubroNegra.h"
+#include "IACODES.h"
 
 static NodeARN *raiz;
 
@@ -10,7 +11,7 @@ void iniciaARN(){
 }
 
 // Pré-Ordem = raiz - esquerda - direita
-void preOrder(NodeARN *raiz){
+void preOrderARN(NodeARN *raiz){
     if(raiz == NULL){
         return;
     }
@@ -18,33 +19,86 @@ void preOrder(NodeARN *raiz){
     printf("%d", raiz->valor);
     raiz->cor ? printf("(V)  ") : printf("(P)  ");
 
-    preOrder(raiz->esq);
-    preOrder(raiz->dir);
+    preOrderARN(raiz->esq);
+    preOrderARN(raiz->dir);
 }
 
 // Em-Ordem = esquerda - raiz - direita
-void inOrder(NodeARN *raiz){
+void inOrderARN(NodeARN *raiz){
     if(raiz == NULL){
         return;
     }
 
-    inOrder(raiz->esq);
+    inOrderARN(raiz->esq);
     printf("%d", raiz->valor);
     raiz->cor ? printf("(V)  ") : printf("(P)  ");
     
-    inOrder(raiz->dir);
+    inOrderARN(raiz->dir);
 }
 
 // Pós-Ordem = esquerda - direita - raiz
-void postOrder(NodeARN *raiz){
+void postOrderARN(NodeARN *raiz){
     if(raiz == NULL){
         return;
     }
 
-    postOrder(raiz->esq);
-    postOrder(raiz->dir);
+    postOrderARN(raiz->esq);
+    postOrderARN(raiz->dir);
     printf("%d", raiz->valor);
     raiz->cor ? printf("(V)  ") : printf("(P)  ");
+}
+
+void mostrarArvoreARN(){
+    if(raiz == NULL){
+        printf("A árvore está atualmente vazia\n");
+        return;
+    }
+
+    int escolha = -1;
+
+    while(escolha < 0 || escolha > 4){
+        printf("\nPor favor, escolha como a árvore será mostrada:\n");
+        printf("[1] Toda a árvore\n");
+        printf("[2] Pré-Ordem\n");
+        printf("[3] Em-Ordem\n");
+        printf("[4] Pós-Ordem\n");
+        printf("[0] Cancelar\n");
+
+        escolha = IA_lerInteiro("\nOpte apenas por [1], [2], [3] ou [4]: ");
+    }
+
+    switch(escolha){
+        case 0:
+            printf("Cancelando...\n");
+            return;
+            break;
+        
+        case 1:
+            printf("\n=== ÁRVORE INTEIRA (vista lateralmente) ===\n");
+            mostrarArvoreRNAux(raiz, 0);
+            printf("\n");
+            break;
+
+        case 2:
+            printf("\n=== PRÉ-ORDEM ===\n");
+            preOrderARN(raiz);
+            printf("\n");
+            break;
+
+        case 3:
+            printf("\n=== EM-ORDEM ===\n");
+            inOrderARN(raiz);
+            printf("\n");
+            break;
+
+        case 4:
+            printf("\n=== PÓS-ORDEM ===\n");
+            postOrderARN(raiz);
+            printf("\n");
+            break;
+
+    }
+    
 }
 
 // Realiza uma rotação simples à esquerda

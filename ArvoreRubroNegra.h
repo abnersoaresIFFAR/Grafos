@@ -18,9 +18,9 @@ void mostrarArvoreARN();
 int buscaARN(int valor);
 
 // Métodos para percorrer a árvore
-void preOrder(NodeARN *raiz);
-void inOrder(NodeARN *raiz);
-void postOrder(NodeARN *raiz);
+void preOrderARN(NodeARN *raiz);
+void inOrderARN(NodeARN *raiz);
+void postOrderARN(NodeARN *raiz);
 
 // Rotações
 void rotacaoEsq(NodeARN *node);
