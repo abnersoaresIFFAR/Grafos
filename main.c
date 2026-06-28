@@ -43,9 +43,10 @@ MENU(){ /* MOSTRA O MENU PARA O USUÁRIO */
             printf("[3] Grafo com matriz de adjacência\n");
             printf("\n    === ÁRVORES ===\n");
             printf("[4] Árvore Binária de Busca\n");
-            opcao = IA_lerInteiro("\nOpte apenas por [1], [2], [3] ou [4]: ");
+            printf("[5] Árvore Rubro Negra\n");
+            opcao = IA_lerInteiro("\nOpte apenas por [1], [2], [3], [4] ou [5]: ");
             
-            if(opcao < 1 || opcao > 4){
+            if(opcao < 1 || opcao > 5){
                 printf("Valor inválido digitado\n");
                 continue;
             }
@@ -291,6 +292,10 @@ void inicializarArvore(){
     if(ARVMET == ABB){
         iniciaABB();
     }
+
+    else if(ARVMET == ARN){
+        iniciaARN();
+    }
 }
 
 void inserirNode(){
@@ -299,6 +304,10 @@ void inserirNode(){
 
     if(ARVMET == ABB){
         inserirNodeABB(val);
+    }
+
+    else if(ARVMET == ARN){
+        inserirNodeARN(val);
     }
 }
 
@@ -309,11 +318,19 @@ void removerNode(){
     if(ARVMET == ABB){
         removerNodeABB(val);
     }
+
+    else if(ARVMET == ARN){
+        removerNodeARN(val);
+    }
 }
 
 void mostrarArvore(){
     if(ARVMET == ABB){
         mostrarArvoreABB();
+    }
+
+    else if(ARVMET == ARN){
+        mostrarArvoreARN();
     }
 }
 
@@ -323,6 +340,15 @@ void busca(){
 
     if(ARVMET == ABB){
         if(buscaABB(val)){
+            printf("Um nó com o valor escolhido existe na árvore!\n");
+        }
+        else{
+            printf("Um nó com o valor escolhido não existe na árvore!\n");
+        }
+    }
+
+    if(ARVMET == ARN){
+        if(buscaARN(val)){
             printf("Um nó com o valor escolhido existe na árvore!\n");
         }
         else{
@@ -359,6 +385,11 @@ int main(){
                 QUALESTRUTURA = ARVORES;
                 ARVMET = ABB;
                 printf("Aplicando sistema de árvore binaria de busca...\n");
+            }
+            else if(opcaomenu == 5){
+                QUALESTRUTURA = ARVORES;
+                ARVMET = ARN;
+                printf("Aplicando sistema de árvore rubro negra...\n");
             }
 
             if(GRAFMET != INVALIDO){

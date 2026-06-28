@@ -423,5 +423,5 @@ void removerNodeARN(int valor){
 }
 
 void corrigirRemocao(NodeARN *node){
-    // FAZER
+    printf("Função não implementada.\n");
 }
