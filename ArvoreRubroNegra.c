@@ -334,7 +334,7 @@ NodeARN *sucessor(NodeARN *node){
     return node;
 }
 
-void transplant(NodeARN *u, NodeARN *v){
+void transplante(NodeARN *u, NodeARN *v){
     if(u->pai == NULL){
         raiz = v;
     }
@@ -350,4 +350,78 @@ void transplant(NodeARN *u, NodeARN *v){
     if(v != NULL){
         v->pai = u->pai;
     }
+}
+
+void removerNodeARN(int valor){
+
+    NodeARN *z = buscaARN(valor);
+
+    if(z == NULL){
+        printf("Valor não encontrado.\n");
+        return;
+    }
+
+    NodeARN *y = z;
+    NodeARN *x;
+
+    bool corOriginal = y->cor;
+
+    // CASO 1: z não possui filho esquerdo
+    if(z->esq == NULL){
+
+        x = z->dir;
+        transplante(z, z->dir);
+    }
+
+    // CASO 2: z não possui filho direito
+    else if(z->dir == NULL){
+
+        x = z->esq;
+        transplante(z, z->esq);
+    }
+
+    // CASO 3: z possui os dois filhos
+    else{
+
+        y = sucessor(z->dir);
+
+        corOriginal = y->cor;
+
+        x = y->dir;
+
+        if(y->pai == z){
+
+            if(x != NULL)
+                x->pai = y;
+        }
+        else{
+
+            transplante(y, y->dir);
+
+            y->dir = z->dir;
+            y->dir->pai = y;
+        }
+
+        transplante(z, y);
+
+        y->esq = z->esq;
+        y->esq->pai = y;
+
+        y->cor = z->cor;
+    }
+
+    free(z);
+
+    if(corOriginal == false){
+        corrigirRemocao(x);
+    }
+
+    if(raiz != NULL)
+        raiz->cor = false;
+
+    printf("Nó removido com sucesso!\n");
+}
+
+void corrigirRemocao(NodeARN *node){
+    // FAZER
 }
