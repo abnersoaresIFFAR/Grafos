@@ -363,6 +363,7 @@ void removerNodeARN(int valor){
 
     NodeARN *y = z;
     NodeARN *x;
+    NodeARN *xPai = NULL;
 
     bool corOriginal = y->cor;
 
@@ -370,6 +371,7 @@ void removerNodeARN(int valor){
     if(z->esq == NULL){
 
         x = z->dir;
+        xPai = z->pai;
         transplante(z, z->dir);
     }
 
@@ -377,6 +379,7 @@ void removerNodeARN(int valor){
     else if(z->dir == NULL){
 
         x = z->esq;
+        xPai = z->pai;
         transplante(z, z->esq);
     }
 
@@ -391,11 +394,13 @@ void removerNodeARN(int valor){
 
         if(y->pai == z){
 
+            xPai = y;
             if(x != NULL)
                 x->pai = y;
         }
         else{
 
+            xPai = y->pai;
             transplante(y, y->dir);
 
             y->dir = z->dir;
@@ -413,7 +418,7 @@ void removerNodeARN(int valor){
     free(z);
 
     if(corOriginal == false){
-        corrigirRemocao(x);
+        corrigirRemocao(x, xPai);
     }
 
     if(raiz != NULL)
@@ -422,6 +427,89 @@ void removerNodeARN(int valor){
     printf("Nó removido com sucesso!\n");
 }
 
-void corrigirRemocao(NodeARN *node){
-    printf("Função não implementada.\n");
+void corrigirRemocao(NodeARN *node, NodeARN *pai){
+    // Nó atual a partir do qual irá rebalancear a árvore
+    NodeARN *no = node;
+    // Pai do nó removido ou nó em que ocorreu a deficiência de cor
+    NodeARN *paiNo = pai;
+
+    // Enquanto o nó for preto e estiver em estado de 'duplo preto'
+    while((no == NULL || no->cor == false) && no != raiz){
+        if(paiNo == NULL)
+            break;
+
+        // Identifica o irmão do nó atual
+        NodeARN *irmao = (no == paiNo->esq) ? paiNo->dir : paiNo->esq;
+
+        // Caso 1: o irmão é vermelho
+        if(irmao != NULL && irmao->cor == true){
+            irmao->cor = false;
+            paiNo->cor = true;
+            if(no == paiNo->esq)
+                rotacaoEsq(paiNo);
+            else
+                rotacaoDir(paiNo);
+            // Atualiza o irmão após a rotação
+            irmao = (no == paiNo->esq) ? paiNo->dir : paiNo->esq;
+        }
+
+        // Caso 2: irmão preto com filhos pretos
+        if(irmao == NULL ||
+           ((irmao->esq == NULL || irmao->esq->cor == false) &&
+            (irmao->dir == NULL || irmao->dir->cor == false))){
+            if(irmao != NULL)
+                irmao->cor = true;
+            // Move o problema para cima na árvore
+            no = paiNo;
+            paiNo = paiNo->pai;
+        }
+        else{
+            if(no == paiNo->esq){
+                // Caso 3: irmão preto com filho direito preto e filho esquerdo vermelho
+                if(irmao->dir == NULL || irmao->dir->cor == false){
+                    if(irmao->esq != NULL)
+                        irmao->esq->cor = false;
+                    irmao->cor = true;
+                    rotacaoDir(irmao);
+                    irmao = paiNo->dir;
+                }
+
+                // Caso 4: irmão preto com filho direito vermelho
+                if(irmao != NULL){
+                    irmao->cor = paiNo->cor;
+                    if(irmao->dir != NULL)
+                        irmao->dir->cor = false;
+                }
+                paiNo->cor = false;
+                rotacaoEsq(paiNo);
+                no = raiz;
+                paiNo = NULL;
+            }
+            else{
+                // Caso 3 simétrico para o nó sendo filho direito
+                if(irmao->esq == NULL || irmao->esq->cor == false){
+                    if(irmao->dir != NULL)
+                        irmao->dir->cor = false;
+                    irmao->cor = true;
+                    rotacaoEsq(irmao);
+                    irmao = paiNo->esq;
+                }
+
+                // Caso 4 simétrico
+                if(irmao != NULL){
+                    irmao->cor = paiNo->cor;
+                    if(irmao->esq != NULL)
+                        irmao->esq->cor = false;
+                }
+                paiNo->cor = false;
+                rotacaoDir(paiNo);
+                no = raiz;
+                paiNo = NULL;
+            }
+        }
+    }
+
+    // Finalmente, garante que o nó atual é preto
+    if(no != NULL)
+        no->cor = false;
 }

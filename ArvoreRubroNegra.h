@@ -28,7 +28,7 @@ void rotacaoDir(NodeARN *node);
 
 // Correções
 void corrigirInsercao(NodeARN *node);
-void corrigirRemocao(NodeARN *node);
+void corrigirRemocao(NodeARN *node, NodeARN *pai);
 
 // Auxiliares
 void iniciaARN();
